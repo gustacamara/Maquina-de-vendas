@@ -4,18 +4,18 @@ bebidas = [[1, "Coca-Cola", 3.75, 2],
             [4, "Café", 1.25, 100],
             [5, "Redbull", 13.99, 2]]
 
+notasTroco = [["Notas de R$100", 0, 2, 100],
+                ["Notas de R$50", 0, 1, 50],
+                ["Notas de R$20", 0, 5, 20],
+                ["Notas de R$10", 0, 3, 10],
+                ["Notas de R$5", 0, 10, 5],
+                ["Notas de R$2", 0, 20, 2],
+                ["moedas de R$1", 0, 5, 1],
+                ["moedas de R$0,50", 0, 5, 0.5],
+                ["moedas de R$0,25", 0, 7, 0.25],
+                ["moedas de R$0,10", 0, 10, 0.10],
+                ["moedas de R$0,5", 0, 1, 0.05]]
 
-notasTroco = [["Notas de R$100", 0, 2],
-                ["Notas de R$50", 0, 1],
-                ["Notas de R$20", 0, 5],
-                ["Notas de R$10", 0, 3],
-                ["Notas de R$5", 0, 10],
-                ["Notas de R$2", 0, 20],
-                ["moedas de R$1", 0, 5],
-                ["moedas de R$0,50", 0, 5],
-                ["moedas de R$0,25", 0, 7],
-                ["moedas de R$0,10", 0, 10],
-                ["moedas de R$0,5", 0, 1]]
 def Usuario():#seleciona se é um cliente ou um administrador
     while True: #entrada do tipo de usuário
         usuario = input("cliente = 1\
@@ -77,64 +77,11 @@ def troco(pagarBebida, codigoBebida):# calcula o troco e caso n tenha moedas suf
     notastrocoCopia = []
     for i in notasTroco:
         notastrocoCopia.append(i.copy())
-    while True:
-    # notas 100
-        if troco - 100 >= 0 and notastrocoCopia[0][2] > 0:
-            troco -= 100
-            notastrocoCopia[0][1] = notastrocoCopia[0][1] + 1
-            notastrocoCopia[0][2] = notastrocoCopia[0][2] - 1
-    # notas 50
-        elif troco - 50 >= 0 and notastrocoCopia[1][2] > 0:
-            troco -= 50
-            notastrocoCopia[1][1] = notastrocoCopia[1][1] + 1
-            notastrocoCopia[1][2] = notastrocoCopia[1][2] - 1
-    # notas 20
-        elif troco - 20 >= 0 and notastrocoCopia[2][2] > 0:
-            troco -= 20
-            notastrocoCopia[2][1] = notastrocoCopia[2][1] + 1
-            notastrocoCopia[2][2] = notastrocoCopia[2][2] - 1
-    # notas 10
-        elif troco - 10 >= 0 and notastrocoCopia[3][2] > 0:
-            troco -= 10
-            notastrocoCopia[3][1] = notastrocoCopia[3][1] + 1
-            notastrocoCopia[3][2] = notastrocoCopia[3][2] - 1 
-    # notas 5
-        elif troco - 5 >= 0 and notastrocoCopia[4][2] > 0:
-            troco -= 5
-            notastrocoCopia[4][1] = notastrocoCopia[4][1] + 1
-            notastrocoCopia[4][2] = notastrocoCopia[4][2] - 1
-    # notas 2
-        elif troco - 2 >= 0 and notastrocoCopia[5][2] > 0:
-            troco -= 2
-            notastrocoCopia[5][1] = notastrocoCopia[5][1] + 1
-            notastrocoCopia[5][2] = notastrocoCopia[5][2] - 1
-    # moedas 1
-        elif troco - 1 >= 0 and notastrocoCopia[6][2] > 0:
-            troco -= 1
-            notastrocoCopia[6][1] = notastrocoCopia[6][1] + 1
-            notastrocoCopia[6][2] = notastrocoCopia[6][2] - 1
-    # moedas 0,50
-        elif troco - 0.5 >= 0 and notastrocoCopia[7][2] > 0:
-            troco -= 0.5
-            notastrocoCopia[7][1] = notastrocoCopia[7][1] + 1
-            notastrocoCopia[7][2] = notastrocoCopia[7][2] - 1
-    # moedas 0,25
-        elif troco - 0.25 >= 0 and notastrocoCopia[8][2] > 0:
-            troco -= 0.25
-            notastrocoCopia[8][1] = notastrocoCopia[8][1] + 1
-            notastrocoCopia[8][2] = notastrocoCopia[8][2] - 1
-    # moedas 0,10
-        elif troco - 0.10 >= 0 and notastrocoCopia[9][2] > 0:
-            troco -= 0.10
-            notastrocoCopia[9][1] = notastrocoCopia[9][1] + 1
-            notastrocoCopia[9][2] = notastrocoCopia[9][2] - 1
-    # moedas 0,05
-        elif troco - 0.05 >= 0 and notastrocoCopia[10][2] > 0:
-            troco -= 0.05
-            notastrocoCopia[10][1] = notastrocoCopia[10][1] + 1
-            notastrocoCopia[10][2] = notastrocoCopia[10][2] - 1
-        else:
-            break
+    for t in range(len(notasTroco)):# Parte que faz os contabiliza os trocos
+        while troco - notastrocoCopia[t][3] >= 0 and  notastrocoCopia[t][2] > 0:
+            troco -= notastrocoCopia[t][3]
+            notastrocoCopia[t][1] += 1
+            notastrocoCopia[t][2] -= 1
     if  troco >= 0.05:
         print("Que pena 😥, a maquina não tem troco o suficiente.\
             \nPor favor, escolha outra bebida😍")
